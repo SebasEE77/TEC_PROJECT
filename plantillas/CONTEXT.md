@@ -39,11 +39,13 @@ mi-proyecto/
 ```
 
 ## Funcionalidades Principales
-1. Registro e inicio de sesión de usuarios con autenticación JWT
-2. Listar todos los productos comestibles del usuario autenticado
-3. Crear un nuevo producto con validación de campos (nombre, categoría, cantidad, precio, fecha de vencimiento)
-4. Actualizar un producto existente, solo si es del usuario autenticado
-5. Eliminar un producto, solo si es del usuario autenticado
+1. Registro de usuarios con validación de email y hash de contraseña
+2. Inicio de sesión que retorna un token JWT
+3. Listar todos los productos del usuario autenticado
+4. Crear un nuevo producto con validación de campos (nombre, categoría, cantidad, precio, fecha de vencimiento)
+5. Actualizar un producto existente, solo si es del usuario autenticado
+6. Eliminar un producto, solo si es del usuario autenticado
+7. Manejo centralizado de errores con respuestas consistentes (400, 401, 403, 404, 500)
 
 ## Variables de Entorno
 - SUPABASE_URL=
