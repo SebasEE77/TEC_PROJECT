@@ -83,7 +83,7 @@
 ---
 
 ## Reglas específicas del proyecto
-- **Propiedad de datos:** un usuario NUNCA puede ver, editar ni eliminar productos de otro usuario; esta validación es obligatoria en cada operación de escritura y lectura individual
+- **Acceso a datos:** todos los usuarios autenticados pueden ver los productos. Solo los usuarios con rol `admin` pueden crear, actualizar o eliminar productos.
 - **Unicidad de email:** al registrar un usuario, verificar antes de insertar que el email no exista; devolver 400 con mensaje claro si ya está registrado
 - **Expiración de tokens:** respetar `ACCESS_TOKEN_EXPIRE_MINUTES` del entorno; no hardcodear tiempos de expiración en el código
 - **Respuestas consistentes:** toda respuesta de error sigue la misma estructura `{"detail": "<mensaje legible>"}` para facilitar el manejo en el cliente
