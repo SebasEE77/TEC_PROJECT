@@ -10,7 +10,7 @@
   - `routes/` → solo definición de endpoints y validación de entrada
   - `models/` → solo definición de esquemas Pydantic y estructuras de datos
   - `utils/` → solo funciones auxiliares reutilizables (hashing, JWT, etc.)
-  - La lógica de negocio y acceso a Supabase va en una capa de servicios (`services/`)
+  - La lógica de negocio y acceso a PostgreSQL va en una capa de servicios (`services/`)
 - Nombres descriptivos: si necesitas un comentario para explicar qué hace una función, está mal nombrada
 - Los endpoints siguen convenciones REST: sustantivos en plural, sin verbos en la URL
   - Permitido: `GET /products`, `POST /products`, `DELETE /products/{id}`
@@ -30,10 +30,10 @@
 - Usar status_code explícito en cada endpoint (201 para creación, 204 para eliminación sin cuerpo, etc.)
 - Separar esquemas de entrada (ProductCreate, UserLogin) de los de respuesta (ProductResponse) para no exponer campos internos como password_hash
 
-## Supabase
-- El cliente de Supabase se instancia una sola vez y se reutiliza (no crear una instancia por request)
-- NUNCA exponer la SUPABASE_KEY en respuestas ni logs
-- Los errores de Supabase deben capturarse y convertirse en HTTPException con mensajes amigables antes de llegar al cliente
+## PostgreSQL
+- El cliente de PostgreSQL se instancia una sola vez y se reutiliza (no crear una instancia por request)
+- NUNCA exponer la PostgreSQL_URL en respuestas ni logs
+- Los errores de PostgreSQL deben capturarse y convertirse en HTTPException con mensajes amigables antes de llegar al cliente
 
 ## Clean Code
 - Funciones: máximo 20 líneas. Si es más, dividirla.
@@ -54,7 +54,7 @@
   | Token ausente o inválido | 401 |
   | Recurso de otro usuario | 403 |
   | Producto / usuario no encontrado | 404 |
-  | Error interno / Supabase caído | 500 |
+  | Error interno / PostgreSQL caído | 500 |
 
 ## Validaciones de negocio
 ### Producto

@@ -17,11 +17,11 @@ de productos en sus aplicaciones.
 ## Stack Tecnológico
 - **Lenguaje:** Python 3.12
 - **Framework:** FastAPI 0.115
-- **Base de datos:** Supabase
+- **Base de datos:** PostgreSQL
 - **Librerías principales:**
     - fastapi
     - uvicorn
-    - supabase
+    - sqlalchemy
 
 ## Estructura del Proyecto
 ```
@@ -30,6 +30,7 @@ mi-proyecto/
 ├── src/
 │   ├── routes/
 │   ├── models/
+│   ├── services/
 │   └── utils/
 ├── tests/
 ├── .env.example
@@ -48,8 +49,7 @@ mi-proyecto/
 7. Manejo centralizado de errores con respuestas consistentes (400, 401, 403, 404, 500)
 
 ## Variables de Entorno
-- SUPABASE_URL=
-- SUPABASE_KEY=
+- DATABASE_URL
 - JWT_SECRET=
 - JWT_ALGORITHM=
 - ACCESS_TOKEN_EXPIRE_MINUTES=
@@ -60,9 +60,5 @@ el navegador sin una configuración adicional, además valida automáticamente l
 a la API y su código es limpio y fácil de entender, lo que lo hace una buena opción 
 para usar en este tipo de proyectos.
 
-Posteriormente, se eligió Supabase porque al ser una base de datos en la nube no requiere instalación 
-ni configuración local, lo que hace más sencillo el proceso de desarrollo y despliegue. 
-Además, al estar basada en PostgreSQL, ofrece todas las ventajas de una base de datos 
-relacional sin la complejidad de administrarla manualmente.
-
+PostgreSQL es la base de datos elegida para este proyecto por su simplicidad de uso y su buena integración con FastAPI a través de SQLAlchemy, que permite interactuar con la base de datos de forma sencilla sin escribir SQL puro. 
 ---

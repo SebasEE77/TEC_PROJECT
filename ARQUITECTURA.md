@@ -15,11 +15,11 @@
         ▼
    [API Gateway / Router]
         │
-   ┌────┼────┐
-   ▼    ▼    ▼
-[Auth] [CRUD] [Export]
-   │    │    │
-   └────┼────┘
+   ┌─────────┐
+   ▼         ▼
+[Auth]      [CRUD]
+   │         │
+   └─────────┘
         ▼
    [Base de Datos]
 ```
