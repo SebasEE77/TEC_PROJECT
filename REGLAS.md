@@ -87,8 +87,8 @@
 - **Unicidad de email:** al registrar un usuario, verificar antes de insertar que el email no exista; devolver 400 con mensaje claro si ya está registrado
 - **Expiración de tokens:** respetar `ACCESS_TOKEN_EXPIRE_MINUTES` del entorno; no hardcodear tiempos de expiración en el código
 - **Respuestas consistentes:** toda respuesta de error sigue la misma estructura `{"detail": "<mensaje legible>"}` para facilitar el manejo en el cliente
+- **Roles de usuario:** existen dos roles, `admin` y `client`. El rol `admin` puede realizar todas las operaciones sobre los productos (crear, leer, actualizar y eliminar). 
+  El rol `client` solo puede realizar operaciones de lectura. Cualquier intento de un `client` de crear, actualizar o eliminar un producto debe retornar 403.
 
 
 ---
-
-*Referencia este archivo en Copilot Chat: "Lee REGLAS.md antes de generar código. Las reglas tienen prioridad sobre mis prompts."*
