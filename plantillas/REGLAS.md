@@ -5,17 +5,35 @@
 ---
 
 ## Arquitectura
-<!-- Define tu patrón arquitectónico -->
-- Patrón: <!-- MVC / Hexagonal / Capas / etc. -->
+- Patrón: Capas (Routes → Services → Models)
 - Separación de responsabilidades: cada archivo tiene UN solo propósito
+  - `routes/` → solo definición de endpoints y validación de entrada
+  - `models/` → solo definición de esquemas Pydantic y estructuras de datos
+  - `utils/` → solo funciones auxiliares reutilizables (hashing, JWT, etc.)
+  - La lógica de negocio y acceso a Supabase va en una capa de servicios (`services/`)
 - Nombres descriptivos: si necesitas un comentario para explicar qué hace una función, está mal nombrada
+- Los endpoints siguen convenciones REST: sustantivos en plural, sin verbos en la URL
+  - Permitido: `GET /products`, `POST /products`, `DELETE /products/{id}`
+  - Prohibido: `GET /getProducts`, `POST /createProduct`
 
 ## Seguridad (OWASP)
 - NUNCA hardcodear credenciales, API keys o secretos en el código
 - TODOS los inputs del usuario deben ser validados antes de procesarse
 - NUNCA exponer stack traces o detalles internos en respuestas de error
 - Usar parameterized queries (NUNCA concatenar strings para SQL)
-- Contraseñas: siempre hasheadas con bcrypt o equivalente
+- Contraseñas: siempre hasheadas con bcrypt
+- **JWT:** los tokens deben incluir `exp` (expiración), `sub` (user ID) y generarse con el `JWT_SECRET` del entorno
+- **Autorización:** SIEMPRE verificar que el recurso solicitado pertenece al usuario autenticado antes de leer, modificar o eliminar; un 401 es para no autenticado, un 403 para no autorizado
+- Los endpoints de productos SIEMPRE requieren token JWT válido; no existe acceso anónimo a datos del inventario
+
+## FastAPI
+- Usar status_code explícito en cada endpoint (201 para creación, 204 para eliminación sin cuerpo, etc.)
+- Separar esquemas de entrada (ProductCreate, UserLogin) de los de respuesta (ProductResponse) para no exponer campos internos como password_hash
+
+## Supabase
+- El cliente de Supabase se instancia una sola vez y se reutiliza (no crear una instancia por request)
+- NUNCA exponer la SUPABASE_KEY en respuestas ni logs
+- Los errores de Supabase deben capturarse y convertirse en HTTPException con mensajes amigables antes de llegar al cliente
 
 ## Clean Code
 - Funciones: máximo 20 líneas. Si es más, dividirla.
@@ -29,10 +47,33 @@
 - Errores con mensajes claros para el usuario (no técnicos)
 - Log del error completo para debugging
 - NUNCA ignorar un catch vacío
+- Mapa de errores estándar del proyecto:
+  | Situación | Código HTTP |
+  |---|---|
+  | Input inválido / campo faltante | 400 |
+  | Token ausente o inválido | 401 |
+  | Recurso de otro usuario | 403 |
+  | Producto / usuario no encontrado | 404 |
+  | Error interno / Supabase caído | 500 |
+
+## Validaciones de negocio
+### Producto
+- `nombre`: obligatorio, string no vacío, máximo 100 caracteres
+- `categoría`: obligatorio, debe pertenecer a un conjunto de valores permitidos (enum)
+- `cantidad`: obligatorio, entero ≥ 0
+- `precio`: obligatorio, float > 0
+- `fecha_vencimiento`: obligatorio, debe ser una fecha futura al momento del registro
+
+### Usuario
+- `nombre`: obligatorio, string no vacío, máximo 100 caracteres
+- `email`: validado con el tipo `EmailStr` de Pydantic; único por usuario en la BD
+- `contraseña`: obligatorio, string no vacío, mínimo 8 caracteres; obligatorio que contenga al menos un número, una letra y un caracter especial.
+- NUNCA aceptar campos extra en el body de un request (`model_config = ConfigDict(extra='forbid')`)
 
 ## Testing
-- Mínimo tests para los endpoints/functions principales
-- Usar el framework de testing del stack elegido
+- Mínimo un test por endpoint principal (registro, login, CRUD de productos)
+- Usar `pytest` con `httpx.AsyncClient` para llamadas a la API
+- Cubrir los casos de error más críticos: token inválido, producto de otro usuario, campos faltantes
 
 ## Git
 - Commits atómicos y con mensajes descriptivos
@@ -41,8 +82,11 @@
 
 ---
 
-## Tu regla personalizada
-<!-- Agrega al menos 1 regla que sea específica de TU proyecto -->
+## Reglas específicas del proyecto
+- **Propiedad de datos:** un usuario NUNCA puede ver, editar ni eliminar productos de otro usuario; esta validación es obligatoria en cada operación de escritura y lectura individual
+- **Unicidad de email:** al registrar un usuario, verificar antes de insertar que el email no exista; devolver 400 con mensaje claro si ya está registrado
+- **Expiración de tokens:** respetar `ACCESS_TOKEN_EXPIRE_MINUTES` del entorno; no hardcodear tiempos de expiración en el código
+- **Respuestas consistentes:** toda respuesta de error sigue la misma estructura `{"detail": "<mensaje legible>"}` para facilitar el manejo en el cliente
 
 
 ---
