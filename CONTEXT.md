@@ -60,5 +60,8 @@ el navegador sin una configuración adicional, además valida automáticamente l
 a la API y su código es limpio y fácil de entender, lo que lo hace una buena opción 
 para usar en este tipo de proyectos.
 
-PostgreSQL es la base de datos elegida para este proyecto por su simplicidad de uso y su buena integración con FastAPI a través de SQLAlchemy, que permite interactuar con la base de datos de forma sencilla sin escribir SQL puro. 
+PostgreSQL es la base de datos elegida para este proyecto por su simplicidad de uso y su buena 
+integración con FastAPI a través de SQLAlchemy, que permite interactuar con la base de datos de 
+forma sencilla sin escribir SQL puro.
+
 ---
