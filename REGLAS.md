@@ -23,7 +23,7 @@
 - Usar parameterized queries (NUNCA concatenar strings para SQL)
 - Contraseñas: siempre hasheadas con bcrypt
 - **JWT:** los tokens deben incluir `exp` (expiración), `sub` (user ID) y generarse con el `JWT_SECRET` del entorno
-- **Autorización:** SIEMPRE verificar que el recurso solicitado pertenece al usuario autenticado antes de leer, modificar o eliminar; un 401 es para no autenticado, un 403 para no autorizado
+- **Autorización:** validar autenticación y permisos según el rol o alcance permitido para cada endpoint; un 401 es para no autenticado y un 403 para no autorizado
 - Los endpoints de productos SIEMPRE requieren token JWT válido; no existe acceso anónimo a datos del inventario
 
 ## FastAPI
