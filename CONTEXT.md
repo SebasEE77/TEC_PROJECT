@@ -42,11 +42,14 @@ mi-proyecto/
 ## Funcionalidades Principales
 1. Registro de usuarios con validación de email y hash de contraseña
 2. Inicio de sesión que retorna un token JWT
-3. Listar todos los productos del usuario autenticado
+3. Listar todos los productos, solo si el usuario está autenticado
 4. Crear un nuevo producto con validación de campos (nombre, categoría, cantidad, precio, fecha de vencimiento)
-5. Actualizar un producto existente, solo si es del usuario autenticado
-6. Eliminar un producto, solo si es del usuario autenticado
+5. Actualizar un producto existente, solo si el usuario está autenticado
+6. Eliminar un producto, solo si el usuario está autenticado
 7. Manejo centralizado de errores con respuestas consistentes (400, 401, 403, 404, 500)
+8. El sistema maneja dos roles de usuario:
+   - Administrador: puede realizar todas las operaciones (crear, leer, actualizar y eliminar productos)
+   - Cliente: solo puede realizar operaciones de lectura (consultar productos)
 
 ## Variables de Entorno
 - DATABASE_URL
