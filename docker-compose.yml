@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:alpine3.22
+    container_name: postgres_db
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: user
+      POSTGRES_DB: products_db
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d products_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5

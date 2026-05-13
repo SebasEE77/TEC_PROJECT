@@ -3,6 +3,7 @@
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI
+import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 
 from models.db import create_tables
@@ -43,7 +44,10 @@ app.include_router(users_router)
 app.include_router(products_router)
 
 if __name__ == "__main__":
-    import uvicorn
+    print("🚀 Starting Food Inventory API...")
+    print("📚 API: http://localhost:8000/docs")
+    print("\nPress Ctrl+C to stop the server\n")
+
     uvicorn.run(
         "main:app",
         host="0.0.0.0",
@@ -51,3 +55,4 @@ if __name__ == "__main__":
         reload=True,
         log_level="info"
     )
+
