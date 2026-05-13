@@ -18,7 +18,7 @@ Clona el proyecto en tu máquina local:
 https://github.com/SebasEE77/TEC_PROJECT.git
 ```
 
-## Paso 2: Crear un entorno virtual e instalar dependencias
+## Paso 2: Crear un entorno virtual e instala las dependencias
 
 Abre una terminal y navega a la carpeta de la API. Crea un entorno virtual local para no instalar dependencias globalmente en tu sistema:
 
