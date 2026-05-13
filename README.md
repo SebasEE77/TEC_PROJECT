@@ -139,30 +139,29 @@ Puedes probar los endpoints:
 
 ```
 .
-├── api-gestion-productos/
-│   ├── src/
-│   │   ├── main.py
-│   │   ├── models/
-│   │   │   ├── database.py
-│   │   │   ├── schemas.py
-│   │   │   └── db.py
-│   │   ├── routes/
-│   │   │   ├── users.py
-│   │   │   └── products.py
-│   │   └── utils/
-│   │       ├── security.py
-│   │       └── auth.py
-│   ├── populate_db.py
-│   ├── requirements.txt
-│   ├── .env
-│   ├── .env.example
-│   └── .gitignore
-├── docker-compose.yml
-├── README.md
-├── ARQUITECTURA.md
-├── CONTEXT.md
-├── REGLAS.md
-└── .gitignore
+├── api-gestion-productos/       
+│   ├── src/                     
+│   │   ├── main.py              # Aplicación FastAPI principal
+│   │   ├── models/              
+│   │   │   ├── database.py      # Definición de tablas (SQLAlchemy)
+│   │   │   ├── schemas.py       # Esquemas de validación (Pydantic)
+│   │   │   └── db.py            # Conexión a PostgreSQL
+│   │   ├── routes/              
+│   │   │   ├── users.py         # Endpoints de usuarios
+│   │   │   └── products.py      # Endpoints de productos
+│   │   └── utils/               
+│   │       ├── security.py      # Funciones de seguridad (hashing, JWT)
+│   │       └── auth.py          # Autenticación y autorización
+│   ├── populate_db.py           # Script para datos de ejemplo
+│   ├── requirements.txt         # Dependencias de Python
+│   ├── .env                     # Variables de entorno (no commitear)
+│   ├── .env.example             # Plantilla de variables de entorno
+├── docker-compose.yml           # Configuración de Docker Compose
+├── README.md                    
+├── ARQUITECTURA.md              # Documentación de arquitectura
+├── CONTEXT.md                   # Contexto del proyecto
+├── REGLAS.md                    # Reglas del proyecto
+└── .gitignore                   # Archivos a ignorar en Git
 ```
 
 ## Descripción de Funcionalidades
