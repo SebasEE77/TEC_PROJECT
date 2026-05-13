@@ -30,7 +30,6 @@ mi-proyecto/
 ├── src/
 │   ├── routes/
 │   ├── models/
-│   ├── services/
 │   └── utils/
 ├── tests/
 ├── prompts/
@@ -38,6 +37,9 @@ mi-proyecto/
 │   ├── REGLAS.md
 │   └── CONTEXT.md
 ├── .env.example
+├── README.md
+├── requirements.txt
+├── docker-compose.yml
 ```
 
 ## Funcionalidades Principales

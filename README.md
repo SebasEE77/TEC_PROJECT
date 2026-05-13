@@ -47,6 +47,12 @@ Este comando instalará todos los paquetes necesarios incluyendo:
 - bcrypt: Hash de contraseñas
 - python-jose: Tokens JWT
 
+Para desactivar el entorno virtual usa:
+
+```
+.\.venv\Scripts\Deactivate
+```
+
 ## Paso 3: Iniciar PostgreSQL con Docker Compose
 
 El proyecto incluye un `docker-compose.yml` en la raíz que crea un contenedor PostgreSQL listo para usarse.
@@ -72,7 +78,7 @@ docker compose ps
 
 ## Paso 4: Configurar Variables de Entorno
 
-En la carpeta `api-gestion-productos`, abre el archivo `.env` (si no existe, cópialo de `.env.example`). Edita el archivo y actualiza los siguientes valores según tu configuración:
+En la raíz del proyecto, crea o edita el archivo `.env` a partir de `.env.example` y actualiza los siguientes valores según tu configuración:
 
 ```
 DATABASE_URL=postgresql://user:user@localhost:5433/products_db
@@ -85,7 +91,7 @@ Si cambias los valores de `docker compose`, ajusta también la URL de conexión 
 
 Ejemplo completo:
 
-```env
+```
 DATABASE_URL=postgresql://user:user@localhost:5433/products_db
 JWT_SECRET=aR3@llyC0mpl3xS3cr3tK3y!2024Pr0j3ct
 JWT_ALGORITHM=HS256
@@ -96,10 +102,10 @@ Guarda el archivo.
 
 ## Paso 5: Ejecutar la API
 
-Asegúrate de haber iniciado primero el servicio de PostgreSQL con Docker Compose y de estar dentro de la carpeta src. Ejecuta la aplicación con:
+Asegúrate de haber iniciado primero el servicio de PostgreSQL con Docker Compose y de estar en la raíz del proyecto. Ejecuta la aplicación con:
 
 ```
-python main.py
+python src/main.py
 ```
 
 Deberías ver un mensaje similar a:
@@ -139,29 +145,30 @@ Puedes probar los endpoints:
 
 ```
 .
-├── api-gestion-productos/       
-│   ├── src/                     
-│   │   ├── main.py              # Aplicación FastAPI principal
-│   │   ├── models/              
-│   │   │   ├── database.py      # Definición de tablas (SQLAlchemy)
-│   │   │   ├── schemas.py       # Esquemas de validación (Pydantic)
-│   │   │   └── db.py            # Conexión a PostgreSQL
-│   │   ├── routes/              
-│   │   │   ├── users.py         # Endpoints de usuarios
-│   │   │   └── products.py      # Endpoints de productos
-│   │   └── utils/               
-│   │       ├── security.py      # Funciones de seguridad (hashing, JWT)
-│   │       └── auth.py          # Autenticación y autorización
-│   ├── populate_db.py           # Script para datos de ejemplo
-│   ├── requirements.txt         # Dependencias de Python
-│   ├── .env                     # Variables de entorno (no commitear)
-│   ├── .env.example             # Plantilla de variables de entorno
+├── src/
+│   ├── main.py                  # Aplicación FastAPI principal
+│   ├── models/
+│   │   ├── database.py          # Definición de tablas (SQLAlchemy)
+│   │   ├── schemas.py           # Esquemas de validación (Pydantic)
+│   │   └── db.py                # Conexión a PostgreSQL
+│   ├── routes/
+│   │   ├── users.py             # Endpoints de usuarios
+│   │   └── products.py          # Endpoints de productos
+│   └── utils/
+│       ├── auth.py              # Autenticación y autorización
+│       └── security.py          # Funciones de seguridad (hashing, JWT)
+├── prompts/                     # Documentación del proyecto
+│   ├── ARQUITECTURA.md
+│   ├── CONTEXT.md
+│   └── REGLAS.md
+├── tests/                       
+│   ├── Food_inventory.postman   # Pruebas de los endpoints del proyecto
+├── .env.example                 # Plantilla de variables de entorno
+├── .gitignore
 ├── docker-compose.yml           # Configuración de Docker Compose
+├── populate_db.py               # Script para datos de ejemplo
 ├── README.md                    
-├── ARQUITECTURA.md              # Documentación de arquitectura
-├── CONTEXT.md                   # Contexto del proyecto
-├── REGLAS.md                    # Reglas del proyecto
-└── .gitignore                   # Archivos a ignorar en Git
+├── requirements.txt             # Dependencias de Python
 ```
 
 ## Descripción de Funcionalidades

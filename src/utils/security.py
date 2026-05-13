@@ -8,7 +8,6 @@ import bcrypt
 from dotenv import load_dotenv
 from jose import JWTError, jwt
 
-from models.schemas import TokenResponse
 
 load_dotenv()
 
