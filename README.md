@@ -7,8 +7,7 @@ Este documento proporciona instrucciones detalladas para instalar, configurar y 
 Antes de comenzar, asegúrate de tener instalados los siguientes componentes:
 
 - Python 3.10 o superior
-- PostgreSQL 12 o superior
-- pgAdmin 4 (para gestión de la base de datos)
+- Docker Desktop o Docker Compose
 - pip (gestor de paquetes de Python)
 
 ## Paso 1: Clonar el Proyecto
@@ -17,16 +16,27 @@ Clona el proyecto en tu máquina local:
 
 ```
 https://github.com/SebasEE77/TEC_PROJECT.git
-
 ```
 
-## Paso 2: Instalar Dependencias de Python
+## Paso 2: Crear un entorno virtual e instala las dependencias
 
-Abre una terminal (PowerShell o CMD) y navega a la carpeta del proyecto. Luego, instala las dependencias requeridas:
+Abre una terminal y navega a la carpeta de la API. Crea un entorno virtual local para no instalar dependencias globalmente en tu sistema:
 
 ```
-python -m pip install -r requirements.txt
+python -m venv .venv
+```
 
+Activa el entorno virtual:
+
+```
+.\.venv\Scripts\Activate
+```
+
+Luego actualiza pip e instala las dependencias:
+
+```
+python -m pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
 Este comando instalará todos los paquetes necesarios incluyendo:
@@ -37,57 +47,46 @@ Este comando instalará todos los paquetes necesarios incluyendo:
 - bcrypt: Hash de contraseñas
 - python-jose: Tokens JWT
 
-## Paso 3: Configurar PostgreSQL en pgAdmin
+## Paso 3: Iniciar PostgreSQL con Docker Compose
 
-### 3.1 Acceder a pgAdmin
+El proyecto incluye un `docker-compose.yml` en la raíz que crea un contenedor PostgreSQL listo para usarse.
 
-Crear una Nueva Base de Datos en pgAdmin:
+Desde la raíz del proyecto ejecuta:
 
-1. En el panel izquierdo, expande "Servers" y selecciona tu servidor PostgreSQL
-2. Haz clic derecho en "Databases" y selecciona "Create" -> "Database"
-3. En el campo "Database" escribe: `food_inventory`
-4. Haz clic en "Save"
+```
+docker compose up -d
+```
 
-### 3.2 Obtener la Cadena de Conexión
+Esto levantará un servicio PostgreSQL con los siguientes valores por defecto:
 
-Necesitarás los siguientes datos de tu servidor PostgreSQL:
+- Usuario: `user`
+- Contraseña: `user`
+- Base de datos: `products_db`
+- Puerto local: `5433`
 
-- Nombre de usuario: (ej. postgres)
-- Contraseña: (tu contraseña de PostgreSQL)
-- Host: localhost (por defecto)
-- Puerto: 5432 (por defecto)
-- Nombre de la BD: food_inventory
+Verifica que el servicio esté corriendo con:
 
-Si estos valores son diferentes, adáptalos según tu configuración.
+```
+docker compose ps
+```
 
 ## Paso 4: Configurar Variables de Entorno
 
-En la carpeta del proyecto, abre el archivo `.env` (si no existe, cópialo de `.env.example`):
+En la carpeta `api-gestion-productos`, abre el archivo `.env` (si no existe, cópialo de `.env.example`). Edita el archivo y actualiza los siguientes valores según tu configuración:
 
 ```
-.env
-```
-
-Edita el archivo y actualiza los siguientes valores según tu configuración:
-
-```env
-DATABASE_URL=postgresql://usuario:contraseña@localhost:5432 food_inventory
+DATABASE_URL=postgresql://user:user@localhost:5433/products_db
 JWT_SECRET=tu-clave-secreta
 JWT_ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
 ```
 
-Reemplaza:
-- `usuario`: nombre de usuario de PostgreSQL (ej. postgres)
-- `contraseña`: contraseña de PostgreSQL
-- `localhost`: dirección del servidor (localhost si está local)
-- `5432`: puerto de PostgreSQL (Dejalo así)
-- `food_inventory`: nombre de la base de datos
+Si cambias los valores de `docker compose`, ajusta también la URL de conexión en este archivo.
 
 Ejemplo completo:
 
 ```env
-DATABASE_URL=postgresql://postgres:mi_contraseña@localhost:5432/food_inventory
+DATABASE_URL=postgresql://user:user@localhost:5433/products_db
 JWT_SECRET=aR3@llyC0mpl3xS3cr3tK3y!2024Pr0j3ct
 JWT_ALGORITHM=HS256
 ACCESS_TOKEN_EXPIRE_MINUTES=30
@@ -97,10 +96,10 @@ Guarda el archivo.
 
 ## Paso 5: Ejecutar la API
 
-Ejecuta la aplicación con:
+Asegúrate de haber iniciado primero el servicio de PostgreSQL con Docker Compose y de estar dentro de la carpeta src. Ejecuta la aplicación con:
 
-```powershell
-python run.py
+```
+python main.py
 ```
 
 Deberías ver un mensaje similar a:
@@ -118,7 +117,7 @@ La API estará disponible en:
 
 Para crear usuarios y productos de prueba, ejecuta:
 
-```powershell
+```
 python populate_db.py
 ```
 
@@ -139,26 +138,30 @@ Puedes probar los endpoints:
 ## Estructura del Proyecto
 
 ```
-api-gestion-productos/
-├── src/
-│   ├── main.py                 # Aplicación FastAPI principal
-│   ├── models/
-│   │   ├── database.py         # Definición de tablas (SQLAlchemy)
-│   │   ├── schemas.py          # Esquemas de validación (Pydantic)
-│   │   └── db.py               # Conexión a PostgreSQL
-│   ├── routes/
-│   │   ├── users.py            # Endpoints de usuarios
-│   │   └── products.py         # Endpoints de productos
-│   └── utils/
-│       ├── security.py         # Funciones de seguridad (hashing, JWT)
-│       └── auth.py             # Autenticación y autorización
-├── run.py                      # Script para ejecutar la API
-├── populate_db.py              # Script para datos de ejemplo
-├── requirements.txt            # Dependencias de Python
-├── .env                        # Variables de entorno (no commitear)
-├── .env.example                # Plantilla de variables de entorno
-├── .gitignore                  # Archivos a ignorar en Git
-└── README.md                   # Este archivo
+.
+├── api-gestion-productos/       
+│   ├── src/                     
+│   │   ├── main.py              # Aplicación FastAPI principal
+│   │   ├── models/              
+│   │   │   ├── database.py      # Definición de tablas (SQLAlchemy)
+│   │   │   ├── schemas.py       # Esquemas de validación (Pydantic)
+│   │   │   └── db.py            # Conexión a PostgreSQL
+│   │   ├── routes/              
+│   │   │   ├── users.py         # Endpoints de usuarios
+│   │   │   └── products.py      # Endpoints de productos
+│   │   └── utils/               
+│   │       ├── security.py      # Funciones de seguridad (hashing, JWT)
+│   │       └── auth.py          # Autenticación y autorización
+│   ├── populate_db.py           # Script para datos de ejemplo
+│   ├── requirements.txt         # Dependencias de Python
+│   ├── .env                     # Variables de entorno (no commitear)
+│   ├── .env.example             # Plantilla de variables de entorno
+├── docker-compose.yml           # Configuración de Docker Compose
+├── README.md                    
+├── ARQUITECTURA.md              # Documentación de arquitectura
+├── CONTEXT.md                   # Contexto del proyecto
+├── REGLAS.md                    # Reglas del proyecto
+└── .gitignore                   # Archivos a ignorar en Git
 ```
 
 ## Descripción de Funcionalidades
