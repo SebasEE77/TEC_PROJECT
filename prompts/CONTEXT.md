@@ -33,10 +33,11 @@ mi-proyecto/
 │   ├── services/
 │   └── utils/
 ├── tests/
+├── prompts/
+│   ├── ARQUITECTURA.md
+│   ├── REGLAS.md
+│   └── CONTEXT.md
 ├── .env.example
-├── CONTEXT.md
-├── REGLAS.md
-└── README.md
 ```
 
 ## Funcionalidades Principales
