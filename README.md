@@ -161,6 +161,8 @@ Puedes probar los endpoints:
 │   ├── ARQUITECTURA.md
 │   ├── CONTEXT.md
 │   └── REGLAS.md
+├── tests/                       
+│   ├── Food_inventory.postman   # Pruebas de los endpoints del proyecto
 ├── .env.example                 # Plantilla de variables de entorno
 ├── .gitignore
 ├── docker-compose.yml           # Configuración de Docker Compose
