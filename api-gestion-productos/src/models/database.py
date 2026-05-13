@@ -6,7 +6,7 @@ Usa SQLAlchemy ORM para mapear objetos Python a registros de base de datos.
 
 from enum import Enum
 
-from sqlalchemy import Column, DateTime, Enum as SQLEnum, Float, Integer, String, Text
+from sqlalchemy import Column, Date, Enum as SQLEnum, Float, Integer, String, Text
 from sqlalchemy.ext.declarative import declarative_base
 
 # Base: clase base para todos los modelos SQLAlchemy
@@ -20,7 +20,7 @@ class UserRoleEnum(str, Enum):
     - ADMIN: puede crear, leer, actualizar y eliminar productos
     - CLIENT: solo puede leer productos
     """
-
+    
     ADMIN = "admin"
     CLIENT = "client"
 
@@ -86,4 +86,4 @@ class Product(Base):
     categoria = Column(SQLEnum(ProductCategoryEnum), nullable=False)
     cantidad = Column(Integer, nullable=False)
     precio = Column(Float, nullable=False)
-    fecha_vencimiento = Column(DateTime, nullable=False)
+    fecha_vencimiento = Column(Date, nullable=False)

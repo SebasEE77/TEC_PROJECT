@@ -6,7 +6,7 @@ Este módulo define esquemas Pydantic para validar datos de entrada y salida.
 Esto asegura que nunca exponemos campos sensibles como password_hash.
 """
 
-from datetime import datetime
+from datetime import datetime, date
 from enum import Enum
 from typing import Optional
 
@@ -58,6 +58,7 @@ class UserRegister(UserBase):
     """
 
     contraseña: str = Field(..., min_length=8, description="Contraseña del usuario (mín. 8 caracteres)")
+    rol: UserRoleEnum = Field(default=UserRoleEnum.CLIENT, description="Rol del usuario")
 
     @field_validator("contraseña")
     @classmethod
@@ -127,7 +128,8 @@ class ProductBase(BaseModel):
     categoria: ProductCategoryEnum = Field(..., description="Categoría del producto")
     cantidad: int = Field(..., ge=0, description="Cantidad en stock")
     precio: float = Field(..., gt=0, description="Precio del producto")
-    fecha_vencimiento: datetime = Field(..., description="Fecha de vencimiento")
+    fecha_vencimiento: date = Field(..., description="Fecha de vencimiento", example="2026-12-31")
+
 
     model_config = ConfigDict(extra="forbid")
 
@@ -141,7 +143,9 @@ class ProductBase(BaseModel):
         Raises:
             ValueError: si la fecha es en el pasado o igual a la fecha actual
         """
-        if value <= datetime.utcnow():
+        if isinstance(value, str):
+            value = date.fromisoformat(value.split("T")[0])
+        if value <= date.today():
             raise ValueError("La fecha de vencimiento debe ser una fecha futura")
         return value
 
@@ -167,19 +171,19 @@ class ProductUpdate(BaseModel):
     categoria: Optional[ProductCategoryEnum] = Field(None, description="Categoría del producto")
     cantidad: Optional[int] = Field(None, ge=0, description="Cantidad en stock")
     precio: Optional[float] = Field(None, gt=0, description="Precio del producto")
-    fecha_vencimiento: Optional[datetime] = Field(None, description="Fecha de vencimiento")
+    fecha_vencimiento: Optional[date] = Field(None, description="Fecha de vencimiento", example="2026-12-31")
 
     model_config = ConfigDict(extra="forbid")
 
-    @field_validator("fecha_vencimiento")
+    @field_validator("fecha_vencimiento", mode="before")
     @classmethod
-    def validate_expiration_date(cls, value: Optional[datetime]) -> Optional[datetime]:
-        """Valida fecha de vencimiento solo si se proporciona un valor.
-        
-        Si value es None, no hace validación (el campo es opcional).
-        Si value es una fecha, verifica que sea futura.
-        """
-        if value is not None and value <= datetime.utcnow():
+    def validate_expiration_date(cls, value: Optional[date]) -> Optional[date]:
+        """Valida fecha de vencimiento solo si se proporciona un valor."""
+        if value is None:
+            return value
+        if isinstance(value, str):
+            value = date.fromisoformat(value.split("T")[0])
+        if value <= date.today():
             raise ValueError("La fecha de vencimiento debe ser una fecha futura")
         return value
 
