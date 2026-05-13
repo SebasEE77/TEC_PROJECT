@@ -47,6 +47,12 @@ Este comando instalará todos los paquetes necesarios incluyendo:
 - bcrypt: Hash de contraseñas
 - python-jose: Tokens JWT
 
+Para desactivar el entorno virtual usa:
+
+```
+.\.venv\Scripts\Deactivate
+```
+
 ## Paso 3: Iniciar PostgreSQL con Docker Compose
 
 El proyecto incluye un `docker-compose.yml` en la raíz que crea un contenedor PostgreSQL listo para usarse.
@@ -154,14 +160,14 @@ Puedes probar los endpoints:
 │   │       └── auth.py          # Autenticación y autorización
 │   ├── populate_db.py           # Script para datos de ejemplo
 │   ├── requirements.txt         # Dependencias de Python
-│   ├── .env                     # Variables de entorno (no commitear)
+│   ├── .env                     # Variables de entorno
 │   ├── .env.example             # Plantilla de variables de entorno
 ├── docker-compose.yml           # Configuración de Docker Compose
 ├── README.md                    
 ├── ARQUITECTURA.md              # Documentación de arquitectura
 ├── CONTEXT.md                   # Contexto del proyecto
 ├── REGLAS.md                    # Reglas del proyecto
-└── .gitignore                   # Archivos a ignorar en Git
+└── .gitignore                   
 ```
 
 ## Descripción de Funcionalidades
