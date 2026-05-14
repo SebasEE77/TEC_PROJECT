@@ -1,14 +1,30 @@
 {
 	"info": {
-		"_postman_id": "f88dc35f-b225-4f5e-9da2-199b308c2ed9",
+		"_postman_id": "44fda3da-e1fb-4476-b079-278e5c8be5a9",
 		"name": "Food_inventory",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "45504696",
-		"_collection_link": "https://juanospina-7965299.postman.co/workspace/e438f829-df6b-4864-a444-ff8e5607448a/collection/45504696-f88dc35f-b225-4f5e-9da2-199b308c2ed9?action=share&source=collection_link&creator=45504696"
+		"_exporter_id": "49356247"
 	},
 	"item": [
 		{
 			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();\r",
+							"if (response.access_token) {\r",
+							"    pm.environment.set(\"token\", response.access_token);\r",
+							"    console.log(\"Token guardado correctamente\");\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -22,14 +38,13 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/docs/users/login",
+					"raw": "http://localhost:8000/users/login",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "8000",
 					"path": [
-						"docs",
 						"users",
 						"login"
 					]
@@ -39,9 +54,42 @@
 		},
 		{
 			"name": "Listar productos",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": []
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nombre\": \"Juan Luis Peres\",\r\n  \"email\": \"{{$randomEmail}}\",\r\n  \"contraseña\": \"@Hola123\",\r\n  \"rol\": \"client\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"products"
+					]
+				}
 			},
 			"response": []
 		},
@@ -53,7 +101,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzc4NzA1NTg5fQ.OJX2deUsuPPWq-YXxtGm5TaGtBLjsnAKm_Jic0Ob_TE",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -62,7 +110,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nombre\": \"Mantequilla\",\r\n    \"categoria\": \"lacteos\",\r\n    \"cantidad\": 15,\r\n    \"precio\": 12.5,\r\n    \"fecha_vencimiento\": \"2026-12-31\"\r\n}",
+					"raw": "{\r\n    \"nombre\": \"Leche\",\r\n    \"categoria\": \"lacteos\",\r\n    \"cantidad\": 15,\r\n    \"precio\": 13,\r\n    \"fecha_vencimiento\": \"2026-12-31\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -92,7 +140,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzc4NzA1NTg5fQ.OJX2deUsuPPWq-YXxtGm5TaGtBLjsnAKm_Jic0Ob_TE",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -131,7 +179,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzc4NzA1NTg5fQ.OJX2deUsuPPWq-YXxtGm5TaGtBLjsnAKm_Jic0Ob_TE",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -140,7 +188,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"nombre\": \"cebolla\"\r\n}",
+					"raw": "{\r\n    \"nombre\": \"Pan\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -148,7 +196,7 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:8000/products/6",
+					"raw": "http://localhost:8000/products/10",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -156,7 +204,7 @@
 					"port": "8000",
 					"path": [
 						"products",
-						"6"
+						"10"
 					]
 				}
 			},
@@ -170,7 +218,7 @@
 					"bearer": [
 						{
 							"key": "token",
-							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzc4NzA1NTg5fQ.OJX2deUsuPPWq-YXxtGm5TaGtBLjsnAKm_Jic0Ob_TE",
+							"value": "{{token}}",
 							"type": "string"
 						}
 					]
@@ -204,10 +252,20 @@
 		{
 			"name": "Eliminar producto",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8000/products/1",
+					"raw": "http://localhost:8000/products/10",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -215,7 +273,7 @@
 					"port": "8000",
 					"path": [
 						"products",
-						"1"
+						"10"
 					]
 				}
 			},
@@ -224,6 +282,16 @@
 		{
 			"name": "Eliminar producto error",
 			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{token}}",
+							"type": "string"
+						}
+					]
+				},
 				"method": "DELETE",
 				"header": [],
 				"url": {

@@ -1,0 +1,198 @@
+{
+	"id": "0db558d6-4d1b-47c6-a42c-57712a8cd213",
+	"name": "Food_inventory",
+	"timestamp": "2026-05-14T17:36:04.642Z",
+	"collection_id": "49356247-44fda3da-e1fb-4476-b079-278e5c8be5a9",
+	"folder_id": 0,
+	"environment_id": "49356247-e3745fd2-4e28-458a-b21c-72f996454dc9",
+	"totalPass": 0,
+	"delay": 0,
+	"persist": true,
+	"status": "finished",
+	"startedAt": "2026-05-14T17:36:02.140Z",
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "b7d8a7b4-4e70-4bca-a453-b17f4d3000d8",
+			"name": "login",
+			"url": "http://localhost:8000/users/login",
+			"time": 433,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				433
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "271fdb16-0145-4b59-86b2-1dca5076088e",
+			"name": "Listar productos",
+			"url": "http://localhost:8000/products",
+			"time": 22,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				22
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "4be33129-8e96-486e-abe8-261a16bb7fa6",
+			"name": "Crear producto",
+			"url": "http://localhost:8000/products/",
+			"time": 44,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				44
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "6627e2b0-2a43-41bf-ba1a-803467195902",
+			"name": "Crear producto error",
+			"url": "http://localhost:8000/products/",
+			"time": 29,
+			"responseCode": {
+				"code": 422,
+				"name": "Unprocessable Entity"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				29
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "a25c49ac-d540-4998-a2d7-fe3e9fc1b8b2",
+			"name": "Actualizar producto",
+			"url": "http://localhost:8000/products/11",
+			"time": 38,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				38
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "c43940e9-282e-4db9-b4e6-fdf46e51bdb5",
+			"name": "Registrar usuario",
+			"url": "http://localhost:8000/users/register",
+			"time": 350,
+			"responseCode": {
+				"code": 201,
+				"name": "Created"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				350
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "24e520d0-23dc-4ff3-bc2e-3b0217c1d3c4",
+			"name": "Eliminar producto",
+			"url": "http://localhost:8000/products/11",
+			"time": 26,
+			"responseCode": {
+				"code": 204,
+				"name": "No Content"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				26
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "4512dfe1-1751-40e3-a00d-b5a02f15fb8d",
+			"name": "Eliminar producto error",
+			"url": "http://localhost:8000/products/39",
+			"time": 18,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				18
+			],
+			"allTests": [
+				{}
+			]
+		}
+	],
+	"count": 1,
+	"totalTime": 960,
+	"collection": {
+		"requests": [
+			{
+				"id": "b7d8a7b4-4e70-4bca-a453-b17f4d3000d8",
+				"method": "POST"
+			},
+			{
+				"id": "271fdb16-0145-4b59-86b2-1dca5076088e",
+				"method": "GET"
+			},
+			{
+				"id": "4be33129-8e96-486e-abe8-261a16bb7fa6",
+				"method": "POST"
+			},
+			{
+				"id": "6627e2b0-2a43-41bf-ba1a-803467195902",
+				"method": "POST"
+			},
+			{
+				"id": "a25c49ac-d540-4998-a2d7-fe3e9fc1b8b2",
+				"method": "PUT"
+			},
+			{
+				"id": "c43940e9-282e-4db9-b4e6-fdf46e51bdb5",
+				"method": "POST"
+			},
+			{
+				"id": "24e520d0-23dc-4ff3-bc2e-3b0217c1d3c4",
+				"method": "DELETE"
+			},
+			{
+				"id": "4512dfe1-1751-40e3-a00d-b5a02f15fb8d",
+				"method": "DELETE"
+			}
+		]
+	}
+}
