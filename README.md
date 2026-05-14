@@ -163,6 +163,7 @@ Puedes probar los endpoints:
 │   └── REGLAS.md
 ├── tests/                       
 │   ├── Food_inventory.postman   # Pruebas de los endpoints del proyecto
+│   ├── Food_inventory_results   # Resultados de las Pruebas de los endpoints
 ├── .env.example                 # Plantilla de variables de entorno
 ├── .gitignore
 ├── docker-compose.yml           # Configuración de Docker Compose
